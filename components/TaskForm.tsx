@@ -1,18 +1,62 @@
 "use client";
 
 import { useState } from "react";
-import type { TaskStatus } from "@/types/task";
+import type { Task, TaskStatus } from "@/types/task";
 
-export default function TaskForm() {
+type TaskFormProps = {
+  onTaskAdded: (task: Task) => void;
+};
+
+export default function TaskForm({
+  onTaskAdded,
+}: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState<TaskStatus>("TODO");
+  const [error, setError] = useState("");
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
+    setError("");
 
-    // TODO:
-    // 1. validate title
-    // 2. later POST request yahan lagegi
+    if (!title.trim()) {
+      setError("Title is required");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title.trim(),
+          status,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Failed to create task");
+        return;
+      }
+
+      const newTask: Task = {
+        id: data.result.insertId,
+        title: title.trim(),
+        status,
+      };
+
+      onTaskAdded(newTask);
+
+      setTitle("");
+      setStatus("TODO");
+    } catch {
+      setError("Failed to create task");
+    }
   }
 
   return (
@@ -36,6 +80,8 @@ export default function TaskForm() {
       </select>
 
       <button type="submit">Add Task</button>
+
+      {error && <p>{error}</p>}
     </form>
   );
 }

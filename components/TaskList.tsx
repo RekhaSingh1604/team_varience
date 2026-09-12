@@ -1,32 +1,30 @@
 import TaskItem from "@/components/TaskItem";
-import type { Task } from "@/types/task";
+import type { Task, TaskStatus } from "@/types/task";
 
-const tasks: Task[] = [
-  {
-    id: 1,
-    title: "Learn Next.js",
-    status: "TODO",
-  },
-  {
-    id: 2,
-    title: "Build API",
-    status: "IN_PROGRESS",
-  },
-  {
-    id: 3,
-    title: "Connect MySQL",
-    status: "DONE",
-  },
-];
+type TaskListProps = {
+  tasks: Task[];
+  onStatusChange: (id: number, status: TaskStatus) => void;
+};
 
-export default function TaskList() {
+export default function TaskList({
+  tasks,
+  onStatusChange,
+}: TaskListProps) {
   return (
     <section>
       <h2>Tasks</h2>
 
-      {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} />
-      ))}
+      {tasks.length === 0 ? (
+        <p>No tasks found.</p>
+      ) : (
+        tasks.map((task) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            onStatusChange={onStatusChange}
+          />
+        ))
+      )}
     </section>
   );
 }
