@@ -1,5 +1,42 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Documentation 
+
+The following official documentationt:
+
+- React Documentation: https://react.dev/reference/react
+react API:https://react.dev/reference/react/apis
+react componenets: https://react.dev/reference/react/components
+- React Hooks: https://react.dev/reference/react/useState
+- React useEffect: https://react.dev/reference/react/useEffect
+- Next.js Route Handlers: https://nextjs.org/docs/app/getting-started/route-handlers
+- Next.js Project Structure: https://nextjs.org/docs/app/getting-started/project-structure
+- Next.js Environment Variables: https://nextjs.org/docs/app/guides/environment-variables
+- MySQL Reference Manual: https://dev.mysql.com/doc/refman/8.0/en/
+- MySQL Prepared Statements: https://dev.mysql.com/doc/refman/8.0/en/sql-prepared-statements.html
+
+
+## Features
+
+- View all tasks
+- Add a new task
+- Select task status
+- Update task status
+- MySQL database persistence
+- Basic form and API validation
+- Loading and error states
+- REST API using Next.js Route Handlers
+
+
+
+
+
+
+
+
+
+
+
 ## Getting Started
 
 First, run the development server:
